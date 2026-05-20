@@ -821,8 +821,7 @@
       return;
     }
 
-    // In production: send to your backend / Mailchimp / ConvertKit
-    console.log('New lead:', email);
+    addToBrevo(email).catch(e => console.error(e));
 
     form.style.display = 'none';
     success.style.display = 'flex';
@@ -842,6 +841,21 @@
   document.getElementById('cta-email').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') handleSubmit('cta');
   });
+async function addToBrevo(email) {
+    const API_KEY = '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';
+    const response = await fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': API_KEY
+      },
+      body: JSON.stringify({
+        email: email,
+        listIds: [2],
+        updateEnabled: true
+      })
+    });
+  }
 </script>
 </body>
 </html>
