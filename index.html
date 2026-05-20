@@ -632,15 +632,8 @@
     </p>
 
     <div class="anim-4">
-      <div class="capture-form" id="hero-form">
-        <input type="email" id="hero-email" placeholder="seu@email.com" autocomplete="email">
-        <button onclick="handleSubmit('hero')">QUERO ACESSO →</button>
-      </div>
-      <div class="success-msg" id="hero-success">
-        <span class="check">✓</span>
-        Você está na lista. Te avisamos quando abrirmos o acesso.
-      </div>
-      <p class="hero-note">Sem spam. Só o aviso de lançamento.</p>
+      <iframe width="540" height="305" src="https://1e24b0f3.sibforms.com/serve/MUIFAOZXIbdJdhXaEegVz6J-HhqPILz2qkx2PJ3sNI0dKCpGLMizw5EvyWA8y89ooqIC5uhthBcBgl7R43GFPtHuokE4zs6Toh5UjUZN4E48wiw1jm7EskGI56YZhFOmZ3XKKSZE1S8kha5ppRinvyT3EThma35shLTnCfG2fm8er24Sgrp-PoHh57vWQ5fd2sZhAsE7WsFDFGJF6A==" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe>
+      <p class="hero-note" style="margin-top:12px;">Sem spam. Só o aviso de lançamento.</p>
     </div>
   </div>
 
@@ -779,15 +772,8 @@
     </p>
     <div class="cta-form-wrap">
       <div>
-        <div class="capture-form" id="cta-form">
-          <input type="email" id="cta-email" placeholder="seu@email.com" autocomplete="email">
-          <button onclick="handleSubmit('cta')">GARANTIR VAGA →</button>
-        </div>
-        <div class="success-msg" id="cta-success">
-          <span class="check">✓</span>
-          Perfeito. Você está na lista de acesso antecipado.
-        </div>
-        <p class="cta-note">Acesso beta gratuito · Sem cartão de crédito · Só o aviso</p>
+        <iframe width="540" height="305" src="https://1e24b0f3.sibforms.com/serve/MUIFAOZXIbdJdhXaEegVz6J-HhqPILz2qkx2PJ3sNI0dKCpGLMizw5EvyWA8y89ooqIC5uhthBcBgl7R43GFPtHuokE4zs6Toh5UjUZN4E48wiw1jm7EskGI56YZhFOmZ3XKKSZE1S8kha5ppRinvyT3EThma35shLTnCfG2fm8er24Sgrp-PoHh57vWQ5fd2sZhAsE7WsFDFGJF6A==" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe>
+        <p class="cta-note" style="margin-top:12px;">Acesso beta gratuito · Sem cartão de crédito · Só o aviso</p>
       </div>
     </div>
   </div>
@@ -805,44 +791,16 @@
 </footer>
 
 <script>
-  // Email counter (simulated social proof)
-  let count = 127;
-  
-  function handleSubmit(formId) {
-    const emailInput = document.getElementById(formId === 'hero' ? 'hero-email' : 'cta-email');
-    const form = document.getElementById(formId + '-form');
-    const success = document.getElementById(formId + '-success');
-    const email = emailInput.value.trim();
-
-    if (!email || !email.includes('@')) {
-      emailInput.style.borderColor = 'rgba(230,80,80,0.5)';
-      emailInput.focus();
-      setTimeout(() => emailInput.style.borderColor = '', 1500);
-      return;
-    }
-
-    addToBrevo(email).catch(e => console.error(e));
-
-    form.style.display = 'none';
-    success.style.display = 'flex';
-    count++;
-  }
-
   // Smooth scroll for nav CTA
   document.querySelector('.nav-cta').addEventListener('click', function(e) {
     e.preventDefault();
     document.getElementById('early-access').scrollIntoView({ behavior: 'smooth' });
   });
 
-  // Enter key on inputs
-  document.getElementById('hero-email').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') handleSubmit('hero');
-  });
-  document.getElementById('cta-email').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') handleSubmit('cta');
-  });
-async function addToBrevo(email) {
-    const API_KEY = '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';
+  async function addToBrevo(email) {
+    const API_KEY = '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';
+    const LIST_ID = 2; // lista padrão do Brevo
+
     const response = await fetch('https://api.brevo.com/v3/contacts', {
       method: 'POST',
       headers: {
@@ -851,10 +809,18 @@ async function addToBrevo(email) {
       },
       body: JSON.stringify({
         email: email,
-        listIds: [2],
-        updateEnabled: true
+        listIds: [LIST_ID],
+        updateEnabled: true,
+        attributes: {
+          SOURCE: 'landing-page-transit'
+        }
       })
     });
+
+    if (!response.ok && response.status !== 204) {
+      const err = await response.json();
+      console.error('Brevo error:', err);
+    }
   }
 </script>
 </body>
