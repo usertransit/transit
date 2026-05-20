@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRANSIT. — Professional connections, in motion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Grotesk:wght@300;400;500&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #111110;
+    --blue: #2B5CE6;
+    --blue-deep: #0A2FA8;
+    --blue-light: #E6EEFF;
+    --off-white: #F5F3EE;
+    --sand: #E0DDD6;
+    --text-muted: #888880;
+    --text-dim: #555550;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.6; transform: scale(0.85); }
+  }
+  @keyframes scan {
+    0%   { transform: translateY(-100%); }
+    100% { transform: translateY(400%); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-8px); }
+  }
+  @keyframes counter {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .anim-1 { animation: fadeUp 0.7s ease both; }
+  .anim-2 { animation: fadeUp 0.7s 0.12s ease both; }
+  .anim-3 { animation: fadeUp 0.7s 0.24s ease both; }
+  .anim-4 { animation: fadeUp 0.7s 0.36s ease both; }
+  .anim-5 { animation: fadeUp 0.7s 0.48s ease both; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(180deg, rgba(17,17,16,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(255,255,255,0.05);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.04em;
+    color: #fff;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--blue); }
+  .nav-cta {
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 20px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .nav-cta:hover { background: var(--blue-deep); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Grid background */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(43,92,230,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(43,92,230,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: fadeIn 1.5s ease both;
+  }
+
+  /* Radial glow */
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(43,92,230,0.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 900px;
+  }
+
+  .hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 28px;
+  }
+  .hero-label::before {
+    content: '';
+    display: block;
+    width: 24px; height: 1px;
+    background: var(--blue);
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    color: #fff;
+    margin-bottom: 32px;
+  }
+  h1 .line2 {
+    display: block;
+    color: rgba(255,255,255,0.25);
+  }
+  h1 .accent { color: var(--blue); }
+
+  .hero-sub {
+    font-size: clamp(15px, 2vw, 18px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+
+  /* Email capture */
+  .capture-form {
+    display: flex;
+    gap: 0;
+    max-width: 480px;
+    background: rgba(255,255,255,0.06);
+    border: 0.5px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .capture-form:focus-within {
+    border-color: rgba(43,92,230,0.6);
+    box-shadow: 0 0 0 3px rgba(43,92,230,0.1);
+  }
+  .capture-form input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 16px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: #fff;
+  }
+  .capture-form input::placeholder { color: rgba(255,255,255,0.3); }
+  .capture-form button {
+    background: var(--blue);
+    border: none;
+    padding: 16px 24px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #fff;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .capture-form button:hover { background: var(--blue-deep); }
+
+  .success-msg {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 20px;
+    background: rgba(43,92,230,0.1);
+    border: 0.5px solid rgba(43,92,230,0.3);
+    border-radius: 10px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    max-width: 480px;
+  }
+  .success-msg .check {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .hero-note {
+    margin-top: 14px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.04em;
+  }
+
+  /* Floating card */
+  .hero-card {
+    position: absolute;
+    right: 48px;
+    bottom: 80px;
+    width: 240px;
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 20px;
+    animation: float 4s ease-in-out infinite;
+    z-index: 1;
+  }
+  .hc-tag {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hc-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--blue);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  .hc-profile {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .hc-avatar {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, var(--blue), var(--blue-deep));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: #fff;
+  }
+  .hc-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 2px;
+  }
+  .hc-role {
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+  }
+  .hc-info {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .hc-chip {
+    background: rgba(43,92,230,0.15);
+    border: 0.5px solid rgba(43,92,230,0.25);
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: rgba(255,255,255,0.03);
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+    border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    padding: 32px 48px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .stat-item {
+    text-align: center;
+    padding: 0 32px;
+    border-right: 0.5px solid rgba(255,255,255,0.06);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-num span { color: var(--blue); }
+  .stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .section {
+    padding: 100px 48px;
+  }
+  .section-tag {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-tag::after {
+    content: '';
+    flex: 1;
+    max-width: 40px;
+    height: 1px;
+    background: var(--blue);
+    opacity: 0.4;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    color: #fff;
+    margin-bottom: 16px;
+    max-width: 560px;
+  }
+  .section-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.4);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 64px;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .step-card {
+    background: rgba(255,255,255,0.03);
+    border: 0.5px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .step-card:hover {
+    background: rgba(43,92,230,0.06);
+    border-color: rgba(43,92,230,0.2);
+  }
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    margin-bottom: 20px;
+  }
+  .step-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: rgba(43,92,230,0.12);
+    border: 0.5px solid rgba(43,92,230,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .step-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.7;
+  }
+
+  /* ── FOR WHO ── */
+  .forwho { background: rgba(255,255,255,0.02); }
+  .profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    max-width: 720px;
+  }
+  .profile-card {
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+  .profile-card:hover { border-color: rgba(43,92,230,0.3); }
+  .pc-avatar {
+    width: 44px; height: 44px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, rgba(43,92,230,0.3), rgba(10,47,168,0.3));
+    border: 0.5px solid rgba(43,92,230,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    flex-shrink: 0;
+  }
+  .pc-info .pc-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .pc-info .pc-detail {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.6;
+  }
+
+  /* ── PRIVACY ── */
+  .privacy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .priv-card {
+    border: 0.5px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 28px 24px;
+  }
+  .priv-icon {
+    font-size: 24px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .priv-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .priv-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.7;
+  }
+
+  /* ── CTA FINAL ── */
+  .cta-section {
+    padding: 100px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(43,92,230,0.12) 0%, transparent 70%);
+  }
+  .cta-section .section-title {
+    margin: 0 auto 16px;
+    text-align: center;
+    max-width: 640px;
+  }
+  .cta-section .section-sub {
+    margin: 0 auto 48px;
+    text-align: center;
+  }
+  .cta-form-wrap {
+    display: flex;
+    justify-content: center;
+    position: relative; z-index: 1;
+  }
+  .cta-section .capture-form {
+    max-width: 440px;
+    width: 100%;
+  }
+  .cta-note {
+    margin-top: 14px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+    padding: 32px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: -0.04em;
+    color: rgba(255,255,255,0.3);
+  }
+  .footer-logo span { color: rgba(43,92,230,0.6); }
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: 0.04em;
+  }
+  .footer-links {
+    display: flex;
+    gap: 24px;
+  }
+  .footer-links a {
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    font-family: 'Space Grotesk', sans-serif;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: rgba(255,255,255,0.5); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .hero { padding: 100px 24px 200px; }
+    .hero-card { right: 24px; bottom: 32px; width: 200px; }
+    .stats-bar { padding: 24px; grid-template-columns: 1fr; gap: 24px; }
+    .stat-item { border-right: none; border-bottom: 0.5px solid rgba(255,255,255,0.06); padding-bottom: 24px; }
+    .stat-item:last-child { border-bottom: none; }
+    .section { padding: 64px 24px; }
+    .steps-grid { grid-template-columns: 1fr; gap: 12px; }
+    .profiles-grid { grid-template-columns: 1fr; }
+    .privacy-grid { grid-template-columns: 1fr; }
+    .cta-section { padding: 64px 24px; }
+    footer { padding: 24px; flex-direction: column; gap: 16px; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">TRANSIT<span>.</span></a>
+  <a href="#early-access" class="nav-cta">ACESSO ANTECIPADO</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label anim-1">Networking executivo · Em breve no Brasil</div>
+    <h1 class="anim-2">
+      Você viaja<br>
+      a trabalho.<span class="accent">.</span>
+      <span class="line2">Outros também.</span>
+    </h1>
+    <p class="hero-sub anim-3">
+      A TRANSIT conecta profissionais que estão nos mesmos destinos, nas mesmas datas. Networking real, na cidade certa, na hora certa.
+    </p>
+
+    <div class="anim-4">
+      <div class="capture-form" id="hero-form">
+        <input type="email" id="hero-email" placeholder="seu@email.com" autocomplete="email">
+        <button onclick="handleSubmit('hero')">QUERO ACESSO →</button>
+      </div>
+      <div class="success-msg" id="hero-success">
+        <span class="check">✓</span>
+        Você está na lista. Te avisamos quando abrirmos o acesso.
+      </div>
+      <p class="hero-note">Sem spam. Só o aviso de lançamento.</p>
+    </div>
+  </div>
+
+  <!-- Floating card -->
+  <div class="hero-card anim-5">
+    <div class="hc-tag"><span class="hc-dot"></span>Conexão disponível</div>
+    <div class="hc-profile">
+      <div class="hc-avatar">AM</div>
+      <div>
+        <div class="hc-name">Ana M.</div>
+        <div class="hc-role">Diretora · Financeiro</div>
+      </div>
+    </div>
+    <div class="hc-info">
+      <span class="hc-chip">São Paulo</span>
+      <span class="hc-chip">18–20 mai</span>
+      <span class="hc-chip">Fasano SP</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">4<span>M+</span></div>
+    <div class="stat-label">Viagens corporativas/ano no Brasil</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">68<span>%</span></div>
+    <div class="stat-label">Executivos viajam sozinhos a negócios</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">0</div>
+    <div class="stat-label">Apps feitos para esse momento</div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="section-tag">Como funciona</div>
+  <h2 class="section-title">Simples como reservar um hotel.</h2>
+  <p class="section-sub">Três passos. Sem algoritmos misteriosos. Você controla tudo.</p>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-icon">✈</div>
+      <div class="step-name">Cadastre sua viagem</div>
+      <div class="step-desc">Informe destino, datas e hotel. Seus dados ficam visíveis apenas para quem tiver match mútuo.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-icon">⚡</div>
+      <div class="step-name">Veja quem estará lá</div>
+      <div class="step-desc">Perfis de profissionais com itinerários coincidentes. Cargo, setor e compatibilidade — sem exposição desnecessária.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-icon">✦</div>
+      <div class="step-name">Conecte-se</div>
+      <div class="step-desc">Interesse mútuo abre o chat. Você decide o que acontece depois — um café, um jantar ou apenas uma boa conversa.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHO -->
+<section class="section forwho">
+  <div class="section-tag">Para quem é</div>
+  <h2 class="section-title">Feito para quem vive em trânsito.</h2>
+  <p class="section-sub">Executivos que conhecem o interior do aeroporto melhor do que a própria sala de estar.</p>
+
+  <div class="profiles-grid">
+    <div class="profile-card">
+      <div class="pc-avatar">EB</div>
+      <div class="pc-info">
+        <div class="pc-role">Executivo de vendas</div>
+        <div class="pc-detail">Viaja toda semana entre SP, RJ e BSB. Hotéis são seu segundo escritório — e às vezes sua única companhia.</div>
+      </div>
+    </div>
+    <div class="profile-card">
+      <div class="pc-avatar">DC</div>
+      <div class="pc-info">
+        <div class="pc-role">Consultora estratégica</div>
+        <div class="pc-detail">Projetos em clientes diferentes todo mês. Conhece muita gente — mas raramente além dos limites do projeto.</div>
+      </div>
+    </div>
+    <div class="profile-card">
+      <div class="pc-avatar">MS</div>
+      <div class="pc-info">
+        <div class="pc-role">Sócio de PE / VC</div>
+        <div class="pc-detail">Agenda cheia durante o dia. Noites livres em cidades que não são a sua. A cidade oferece muito — se você souber com quem ir.</div>
+      </div>
+    </div>
+    <div class="profile-card">
+      <div class="pc-avatar">RL</div>
+      <div class="pc-info">
+        <div class="pc-role">Diretora de operações</div>
+        <div class="pc-detail">Viagens de negócios constantes. Redes profissionais sólidas — mas poucas conexões que vão além do LinkedIn.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section class="section">
+  <div class="section-tag">Privacidade</div>
+  <h2 class="section-title">Discrição não é opcional.<br>É o produto.</h2>
+  <p class="section-sub">Construímos cada funcionalidade pensando primeiro em quem você não quer que saiba.</p>
+
+  <div class="privacy-grid">
+    <div class="priv-card">
+      <span class="priv-icon">🔒</span>
+      <div class="priv-title">Foto e nome completo só após match</div>
+      <div class="priv-desc">Ninguém vê seu perfil completo sem que haja interesse mútuo confirmado. Você controla quem te vê.</div>
+    </div>
+    <div class="priv-card">
+      <span class="priv-icon">🚫</span>
+      <div class="priv-title">Sem feed público</div>
+      <div class="priv-desc">Não existe timeline, sem posts, sem curtidas visíveis. A TRANSIT não é rede social — é uma ferramenta privada.</div>
+    </div>
+    <div class="priv-card">
+      <span class="priv-icon">🛡</span>
+      <div class="priv-title">Dados criptografados</div>
+      <div class="priv-desc">Itinerários e conversas armazenados com criptografia. Jamais vendemos dados para terceiros. Nunca.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section" id="early-access">
+  <div style="position:relative;z-index:1;">
+    <div class="section-tag" style="justify-content:center;">Acesso antecipado</div>
+    <h2 class="section-title">Seja dos primeiros.</h2>
+    <p class="section-sub">
+      Estamos construindo a TRANSIT e queremos que os primeiros usuários ajudem a moldar o produto. Cadastre-se e garanta acesso beta gratuito.
+    </p>
+    <div class="cta-form-wrap">
+      <div>
+        <div class="capture-form" id="cta-form">
+          <input type="email" id="cta-email" placeholder="seu@email.com" autocomplete="email">
+          <button onclick="handleSubmit('cta')">GARANTIR VAGA →</button>
+        </div>
+        <div class="success-msg" id="cta-success">
+          <span class="check">✓</span>
+          Perfeito. Você está na lista de acesso antecipado.
+        </div>
+        <p class="cta-note">Acesso beta gratuito · Sem cartão de crédito · Só o aviso</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">TRANSIT<span>.</span></div>
+  <div class="footer-copy">© 2025 TRANSIT. Todos os direitos reservados.</div>
+  <div class="footer-links">
+    <a href="#">Privacidade</a>
+    <a href="#">Termos</a>
+    <a href="#">Contato</a>
+  </div>
+</footer>
+
+<script>
+  // Email counter (simulated social proof)
+  let count = 127;
+  
+  function handleSubmit(formId) {
+    const emailInput = document.getElementById(formId === 'hero' ? 'hero-email' : 'cta-email');
+    const form = document.getElementById(formId + '-form');
+    const success = document.getElementById(formId + '-success');
+    const email = emailInput.value.trim();
+
+    if (!email || !email.includes('@')) {
+      emailInput.style.borderColor = 'rgba(230,80,80,0.5)';
+      emailInput.focus();
+      setTimeout(() => emailInput.style.borderColor = '', 1500);
+      return;
+    }
+
+    // In production: send to your backend / Mailchimp / ConvertKit
+    console.log('New lead:', email);
+
+    form.style.display = 'none';
+    success.style.display = 'flex';
+    count++;
+  }
+
+  // Smooth scroll for nav CTA
+  document.querySelector('.nav-cta').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('early-access').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Enter key on inputs
+  document.getElementById('hero-email').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleSubmit('hero');
+  });
+  document.getElementById('cta-email').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleSubmit('cta');
+  });
+</script>
+</body>
+</html>
