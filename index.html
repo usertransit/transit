@@ -632,8 +632,17 @@
     </p>
 
     <div class="anim-4">
-      <iframe width="540" height="305" src="https://1e24b0f3.sibforms.com/serve/MUIFAOZXIbdJdhXaEegVz6J-HhqPILz2qkx2PJ3sNI0dKCpGLMizw5EvyWA8y89ooqIC5uhthBcBgl7R43GFPtHuokE4zs6Toh5UjUZN4E48wiw1jm7EskGI56YZhFOmZ3XKKSZE1S8kha5ppRinvyT3EThma35shLTnCfG2fm8er24Sgrp-PoHh57vWQ5fd2sZhAsE7WsFDFGJF6A==" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe>
-      <p class="hero-note" style="margin-top:12px;">Sem spam. Só o aviso de lançamento.</p>
+      <div id="hero-form-wrap">
+        <form id="hero-form" class="capture-form" action="https://formspree.io/f/xqejpvdy" method="POST">
+          <input type="email" name="email" id="hero-email" placeholder="seu@email.com" autocomplete="email" required>
+          <button type="submit">QUERO ACESSO →</button>
+        </form>
+        <div class="success-msg" id="hero-success">
+          <span class="check">✓</span>
+          Você está na lista. Te avisamos quando abrirmos o acesso.
+        </div>
+      </div>
+      <p class="hero-note">Sem spam. Só o aviso de lançamento.</p>
     </div>
   </div>
 
@@ -772,8 +781,17 @@
     </p>
     <div class="cta-form-wrap">
       <div>
-        <iframe width="540" height="305" src="https://1e24b0f3.sibforms.com/serve/MUIFAOZXIbdJdhXaEegVz6J-HhqPILz2qkx2PJ3sNI0dKCpGLMizw5EvyWA8y89ooqIC5uhthBcBgl7R43GFPtHuokE4zs6Toh5UjUZN4E48wiw1jm7EskGI56YZhFOmZ3XKKSZE1S8kha5ppRinvyT3EThma35shLTnCfG2fm8er24Sgrp-PoHh57vWQ5fd2sZhAsE7WsFDFGJF6A==" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe>
-        <p class="cta-note" style="margin-top:12px;">Acesso beta gratuito · Sem cartão de crédito · Só o aviso</p>
+        <div id="cta-form-wrap">
+          <form id="cta-form" class="capture-form" action="https://formspree.io/f/xqejpvdy" method="POST">
+            <input type="email" name="email" id="cta-email" placeholder="seu@email.com" autocomplete="email" required>
+            <button type="submit">GARANTIR VAGA →</button>
+          </form>
+          <div class="success-msg" id="cta-success">
+            <span class="check">✓</span>
+            Perfeito. Você está na lista de acesso antecipado.
+          </div>
+        </div>
+        <p class="cta-note">Acesso beta gratuito · Sem cartão de crédito · Só o aviso</p>
       </div>
     </div>
   </div>
@@ -791,6 +809,30 @@
 </footer>
 
 <script>
+  // Formspree AJAX submission
+  async function handleFormspree(formEl, successEl) {
+    const data = new FormData(formEl);
+    const response = await fetch(formEl.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (response.ok) {
+      formEl.style.display = 'none';
+      successEl.style.display = 'flex';
+    }
+  }
+
+  document.getElementById('hero-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    handleFormspree(this, document.getElementById('hero-success'));
+  });
+
+  document.getElementById('cta-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    handleFormspree(this, document.getElementById('cta-success'));
+  });
+
   // Smooth scroll for nav CTA
   document.querySelector('.nav-cta').addEventListener('click', function(e) {
     e.preventDefault();
