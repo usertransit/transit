@@ -31,7 +31,7 @@
             <span class="text-brandBlue font-extrabold">.</span>
             <span class="text-white font-extrabold">.</span>
         </div>
-        <span class="text-xs tracking-widest text-gray-500 uppercase font-mono hidden sm:inline">Beta Aberto Fechado</span>
+        <span class="text-xs tracking-widest text-gray-500 uppercase font-mono hidden sm:inline">Beta Aberto</span>
     </header>
 
     <main class="w-full max-w-5xl mx-auto px-6 py-8 flex flex-col lg:flex-row items-center gap-12 my-auto">
@@ -88,15 +88,8 @@
                     </div>
                     <div>
                         <label class="block text-xs uppercase tracking-wider text-gray-400 font-mono mb-1.5" for="destination">Destino mais frequente</label>
-                        <select id="destination" name="destination" required 
-                            class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-brandBlue transition-colors appearance-none">
-                            <option value="" disabled selected class="text-zinc-600">Selecione...</option>
-                            <option value="SP-FariaLima">São Paulo (Faria Lima / Itaim)</option>
-                            <option value="SP-Berrini">São Paulo (Berrini / Chucri Zaidan)</option>
-                            <option value="RJ-Centro">Rio de Janeiro (Centro / Porto)</option>
-                            <option value="BH-Savassi">Belo Horizonte (Savassi / Lourdes)</option>
-                            <option value="Outros">Outras Capitais de Negócios</option>
-                        </select>
+                        <input type="text" id="destination" name="destination" required placeholder="Ex: São Paulo, Miami..." 
+                            class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-brandBlue transition-colors">
                     </div>
                 </div>
 
