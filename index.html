@@ -31,7 +31,7 @@
             <span class="text-brandBlue font-extrabold">.</span>
             <span class="text-white font-extrabold">.</span>
         </div>
-        <span class="text-xs tracking-widest text-gray-500 uppercase font-mono hidden sm:inline">Beta Aberto</span>
+        <span class="text-xs tracking-widest text-gray-500 uppercase font-mono hidden sm:inline">Beta Piloto SP</span>
     </header>
 
     <main class="w-full max-w-5xl mx-auto px-6 py-8 flex flex-col lg:flex-row items-center gap-12 my-auto">
@@ -39,7 +39,7 @@
         <div class="w-full lg:w-1/2 space-y-6 text-center lg:text-left">
             <div class="inline-flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-full text-xs text-gray-400 font-medium">
                 <span class="w-2 h-2 rounded-full bg-brandBlue animate-pulse"></span>
-                Exclusivo para Executivos e C-Levels
+                Foco Inicial: Hub Corporativo de São Paulo
             </div>
             
             <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight text-white">
@@ -50,12 +50,12 @@
             </h1>
             
             <p class="text-gray-400 text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
-                Não jante sozinho na sua próxima viagem de negócios. A <strong>TRANSIT..</strong> cruza sua agenda de forma inteligente e privada com outros tomadores de decisão hospedados no mesmo perímetro. Otimize seu tempo ocioso e aumente seu pipeline.
+                Não jante sozinho na sua próxima viagem de negócios a São Paulo. A <strong>TRANSIT..</strong> cruza sua agenda com outros tomadores de decisão hospedados no mesmo perímetro logístico. Otimize seu tempo ocioso após o expediente.
             </p>
 
             <div class="border-t border-zinc-800 pt-6 hidden lg:block">
                 <p class="text-xs text-zinc-500 font-mono">
-                    // COMO FUNCIONA: Rotina preservada durante o dia. Networking estratégico e jantares de negócios após as 19h.
+                    // COMO FUNCIONA: Rotina preservada durante o dia. Networking estratégico e jantares de negócios após as 19h no seu eixo de hospedagem.
                 </p>
             </div>
         </div>
@@ -63,8 +63,8 @@
         <div class="w-full lg:w-1/2 max-w-md bg-brandCard border border-zinc-800 p-8 rounded-2xl shadow-2xl relative overflow-hidden">
             <div class="absolute top-0 right-0 w-24 h-24 bg-brandBlue/10 rounded-full blur-2xl"></div>
             
-            <h2 class="text-xl font-bold text-white mb-2">Entre para a lista de acesso VIP</h2>
-            <p class="text-sm text-gray-400 mb-6">Estamos limitando as vagas para garantir densidade crítica de alto nível nas principais capitais de negócios.</p>
+            <h2 class="text-xl font-bold text-white mb-2">Solicite acesso ao Lote Piloto</h2>
+            <p class="text-sm text-gray-400 mb-6">Vagas estritamente limitadas para garantir densidade de alto nível nos principais eixos corporativos de SP.</p>
 
             <form action="https://formspree.io/f/mvzyqbnj" method="POST" class="space-y-4">
                 
@@ -87,19 +87,25 @@
                             class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-brandBlue transition-colors">
                     </div>
                     <div>
-                        <label class="block text-xs uppercase tracking-wider text-gray-400 font-mono mb-1.5" for="destination">Destino mais frequente</label>
-                        <input type="text" id="destination" name="destination" required placeholder="Ex: São Paulo, Miami..." 
-                            class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-brandBlue transition-colors">
+                        <label class="block text-xs uppercase tracking-wider text-gray-400 font-mono mb-1.5" for="destination">Eixo de Preferência (SP)</label>
+                        <select id="destination" name="destination" required 
+                            class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-brandBlue transition-colors appearance-none cursor-pointer">
+                            <option value="" disabled selected class="text-zinc-600">Selecione...</option>
+                            <option value="FariaLima-Itaim">Faria Lima / Itaim Bibi</option>
+                            <option value="Berrini-Chucri">Berrini / Chucri Zaidan</option>
+                            <option value="Paulista-Jardins">Av. Paulista / Jardins</option>
+                            <option value="Outro-Eixo">Outra região de SP</option>
+                        </select>
                     </div>
                 </div>
 
                 <button type="submit" 
                     class="w-full bg-white hover:bg-gray-100 text-brandDark font-bold py-3.5 px-4 rounded-lg text-sm tracking-wide transition-all duration-200 transform active:scale-[0.98] mt-2">
-                    Solicitar Convite para o Beta
+                    Garantir Vaga no Lote SP
                 </button>
                 
                 <p class="text-[11px] text-center text-zinc-500 font-mono mt-4">
-                    🔒 Seus dados de viagem são e sempre serão privados.
+                    🔒 Seus dados e rotas são estritamente confidenciais.
                 </p>
             </form>
         </div>
